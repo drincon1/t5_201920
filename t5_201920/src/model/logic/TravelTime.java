@@ -16,8 +16,8 @@ public class TravelTime implements Comparable<TravelTime>
 	//es la zona destino
 	private int distid;
 	
-	//es la hora del dia
-	private int hod;
+	//es el dia de la semana
+	private int dow;
 	
 	//es el tiempo promedio de viaje entre las dos zonas
 	private double mean_travel_time;
@@ -34,17 +34,17 @@ public class TravelTime implements Comparable<TravelTime>
 	 * @param trimestre El trimestre del año del viaje. trimestre == 1 || trimestre == 2
 	 * @param sourceid La zona de origen source. sourceid > 0
 	 * @param distid La zona destino. distid > 0  
-	 * @param hod La hora del dia. hod >=0 && hod <= 23
+	 * @param dow El día de la semana. hod dow > 0 && dow < 8
 	 * @param mean_travel_time El tiempo promedio de viaje entre las dos zonas. mean_travel_time > 0
 	 * @param standard_deviation_travel_time La desviación estándar de los tiempos de viaje. standar_deviation_travel_time > 0
 	 */
-	public TravelTime(int trimestre, int sourceid, int distid, int hod, double mean_travel_time,
+	public TravelTime(int trimestre, int sourceid, int distid, int dow, double mean_travel_time,
 			double standard_deviation_travel_time) 
 	{
 		this.trimestre = trimestre;
 		this.sourceid = sourceid;
 		this.distid = distid;
-		this.hod = hod;
+		this.dow = dow;
 		this.mean_travel_time = mean_travel_time;
 		this.standard_deviation_travel_time = standard_deviation_travel_time;
 	}
@@ -67,8 +67,8 @@ public class TravelTime implements Comparable<TravelTime>
 		return distid;
 	}
 	
-	public int getHod() {
-		return hod;
+	public int getDow() {
+		return dow;
 	}
 
 	public double getMean_travel_time() {

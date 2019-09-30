@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import model.logic.MVCModelo;
 import view.MVCView;
@@ -18,8 +17,9 @@ public class Controller
 	/**
 	 * Crear la vista y el modelo del proyecto
 	 * @param capacidad tamaNo inicial del arreglo
+	 * @throws IOException 
 	 */
-	public Controller ()
+	public Controller () throws IOException
 	{
 		modelo = new MVCModelo();
 		view = new MVCView();
@@ -27,6 +27,6 @@ public class Controller
 
 	public void run() throws IOException
 	{
-
+		view.printInfoCarga(modelo.getViajesSemana1(), modelo.getViajesSemana2(), modelo.getViajesSemana3(), modelo.getViajesSemana4());
 	}
 }
