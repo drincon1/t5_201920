@@ -9,6 +9,7 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	//----------------------------------------
 
 	private int M;
+	private int N;
 	
 	private Node[] st;
 	
@@ -80,6 +81,7 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	public TablaHashSeparateChaining (int m)
 	{
 		M = m;
+		N = 0;
 		st = new Node[m];
 
 	}
@@ -100,6 +102,7 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 			}
 				
 		}
+		N++;
 		st[i] = new Node(key, value, st[i]);
 	}
 
@@ -114,33 +117,51 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	}
 
 	@Override
+	//Código sacado de http://www.algolist.net/Data_structures/Hash_table/Chaining
 	public V delete(K key) 
 	{	
 		int i = hash(key);
-		Node anterior = null;
 		V valor = null;
-		for(Node x = st[i]; x != null; x = x.getNext())
+		if(st[i] != null)
 		{
-			if(x.getKey().equals(key))
+			Node prev = null;
+			Node actual = st[i];
+			while(actual.getNext() != null && !(actual.getKey().equals(key)))
 			{
-				if(anterior != null)
-					anterior.setNext(x.getNext());
-				valor = (V) x.getValue();
-				
-				break;
+				prev = actual;
+				actual = actual.getNext();
 			}
-			anterior = x;
+			if(actual.getKey().equals(key))
+			{
+				valor = (V) actual.getValue();
+				if(prev == null)
+					st[i] = actual.getNext();
+				else
+					prev.setNext(actual.getNext());
+				N--;
+			}
 		}
-		
-		
 		return valor;
 	}
 
 	@Override
 	public Iterator<K> keys()
 	{
-		
-		return null;
+		ArrayList<K> lista = new ArrayList<K>();
+		for(int i = 0; i < N; i++)
+		{
+			if(st[i] != null)
+			{
+				Node temp = st[i];
+				while(temp != null)
+				{
+					lista.add((K) temp.getKey());
+					temp = temp.getNext();
+				}
+			}
+		}
+		Iterator<K> keys = lista.iterator();
+		return keys;
 	}
 
 	private int hash (K key)

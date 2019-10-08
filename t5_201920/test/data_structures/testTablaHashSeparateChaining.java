@@ -1,6 +1,9 @@
 package data_structures;
 
 import static org.junit.Assert.*;
+
+import java.util.*;
+
 import org.junit.*;
 import model.data_structures.TablaHashSeparateChaining; 
 
@@ -27,5 +30,13 @@ public class testTablaHashSeparateChaining
 	{
 		assertEquals("Barcelona",tabla.delete("1"));
 		assertEquals(null, tabla.get("1"));
+	}
+	
+	@Test
+	public void testIterador()
+	{
+		Iterator a = tabla.keys();
+		while(a.hasNext())
+			System.out.println(tabla.keys().next());
 	}
 }
