@@ -11,15 +11,21 @@ public class testTablaHashSeparateChaining
 	public void setUp()
 	{
 		tabla = new TablaHashSeparateChaining<String, String>(3);
+		tabla.put("1", "Barcelona");
+		tabla.put("2", "Liverpool");
+		tabla.put("3", "BVB");
 	}
 	
 	@Test
 	public void testAnadir()
-	{
-		tabla.put("1", "Barcelona");
-		tabla.put("2", "Liverpool");
-		tabla.put("3", "BVB");
-		
+	{	
 		assertEquals("Barcelona", tabla.get("1"));
+	}
+	
+	@Test
+	public void testBorrar()
+	{
+		assertEquals("Barcelona",tabla.delete("1"));
+		assertEquals(null, tabla.get("1"));
 	}
 }

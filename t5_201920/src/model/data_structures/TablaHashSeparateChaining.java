@@ -9,8 +9,64 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	//----------------------------------------
 
 	private int M;
+	
+	private Node[] st;
+	
+	private static class Node
+	{
+		private Object key;
+		private Object value;
+		private Node next;
+		
+		public Node(Object key, Object value, Node next) {
+			super();
+			this.key = key;
+			this.value = value;
+			this.next = next;
+		}
 
-	private NodoHashTable<K, V>[] st;
+		/**
+		 * @return the key
+		 */
+		public Object getKey() {
+			return key;
+		}
+
+		/**
+		 * @param key the key to set
+		 */
+		public void setKey(Object key) {
+			this.key = key;
+		}
+
+		/**
+		 * @return the value
+		 */
+		public Object getValue() {
+			return value;
+		}
+
+		/**
+		 * @param value the value to set
+		 */
+		public void setValue(Object value) {
+			this.value = value;
+		}
+
+		/**
+		 * @return the next
+		 */
+		public Node getNext() {
+			return next;
+		}
+
+		/**
+		 * @param next the next to set
+		 */
+		public void setNext(Node next) {
+			this.next = next;
+		}	
+	}
 
 
 	//----------------------------------------
@@ -24,7 +80,8 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	public TablaHashSeparateChaining (int m)
 	{
 		M = m;
-		st = (NodoHashTable<K, V>[]) new Object[m];
+		st = new Node[m];
+
 	}
 
 	//----------------------------------------
@@ -34,37 +91,55 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	public void put(K key, V value) 
 	{
 		int i = hash(key);
-		for (NodoHashTable<K, V>  x = st[i]; x != null; x = x.getNext())
+		for(Node x = st[i]; x != null; x = x.getNext())
 		{
-			if (key.equals(x.getKey())) 
-			{ 
+			if(key.equals(x.getKey()))
+			{
 				x.setValue(value);
 				return;
 			}
+				
 		}
-
-		st[i] = new NodoHashTable<K, V> (key, value);
+		st[i] = new Node(key, value, st[i]);
 	}
 
 	@Override
 	public V get(K key) 
 	{
 		int i = hash(key);
-		for (NodoHashTable<K, V> x = st[i]; x != null; x = x.getNext())
-			if (key.equals(x.getKey())) 
-				return x.getValue();
+		for(Node x = st[i]; x != null; x = x.getNext())
+			if(x.getKey().equals(key))
+				return (V) x.getValue();
 		return null;
 	}
 
 	@Override
 	public V delete(K key) 
 	{	
-		return null;
+		int i = hash(key);
+		Node anterior = null;
+		V valor = null;
+		for(Node x = st[i]; x != null; x = x.getNext())
+		{
+			if(x.getKey().equals(key))
+			{
+				if(anterior != null)
+					anterior.setNext(x.getNext());
+				valor = (V) x.getValue();
+				
+				break;
+			}
+			anterior = x;
+		}
+		
+		
+		return valor;
 	}
 
 	@Override
 	public Iterator<K> keys()
 	{
+		
 		return null;
 	}
 
