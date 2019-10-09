@@ -67,7 +67,6 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 			this.next = next;
 		}
 
-		@Override
 		public int compareTo(Node o) 
 		{
 			return 0;
@@ -94,7 +93,6 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	//----------------------------------------
 	// Métodos de funcionamiento 
 	//----------------------------------------
-	@Override
 	public void put(K key, V value) 
 	{
 		int i = hash(key);		
@@ -129,7 +127,6 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 		}
 	}
 
-	@Override
 	public V get(K key) 
 	{
 		int i = hash(key);		
@@ -141,7 +138,7 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 		return null;
 	}
 
-	@Override
+	
 	//Código sacado de http://www.algolist.net/Data_structures/Hash_table/Chaining
 	public V delete(K key) 
 	{	
@@ -169,7 +166,6 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 		return valor;
 	}
 
-	@Override
 	public Iterator<K> keys()
 	{
 		ArrayList<K> lista = new ArrayList<K>();

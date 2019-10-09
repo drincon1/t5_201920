@@ -7,7 +7,7 @@ public class TravelTime implements Comparable<TravelTime>
 	// Atributos
 	//-----------------------------
 	
-	// es el trimestre del año del viaje
+	// es el trimestre del aÃ±o del viaje
 	private int trimestre;
 	
 	//es la zona de origen
@@ -22,7 +22,7 @@ public class TravelTime implements Comparable<TravelTime>
 	//es el tiempo promedio de viaje entre las dos zonas
 	private double mean_travel_time;
 	
-	//es la desviación estándar de los tiempos de viaje
+	//es la desviacioÌ�n estaÌ�ndar de los tiempos de viaje
 	private double standard_deviation_travel_time;
 
 	
@@ -31,12 +31,12 @@ public class TravelTime implements Comparable<TravelTime>
 	//-----------------------------
 	/**
 	 * Metodo constructor de la clase TravelTime
-	 * @param trimestre El trimestre del año del viaje. trimestre == 1 || trimestre == 2
+	 * @param trimestre El trimestre del aÃ±o del viaje. trimestre == 1 || trimestre == 2
 	 * @param sourceid La zona de origen source. sourceid > 0
 	 * @param distid La zona destino. distid > 0  
-	 * @param dow El día de la semana. hod dow > 0 && dow < 8
+	 * @param dow El dÃ­a de la semana. hod dow > 0 && dow < 8
 	 * @param mean_travel_time El tiempo promedio de viaje entre las dos zonas. mean_travel_time > 0
-	 * @param standard_deviation_travel_time La desviación estándar de los tiempos de viaje. standar_deviation_travel_time > 0
+	 * @param standard_deviation_travel_time La desviacioÌ�n estaÌ�ndar de los tiempos de viaje. standar_deviation_travel_time > 0
 	 */
 	public TravelTime(int trimestre, int sourceid, int distid, int dow, double mean_travel_time,
 			double standard_deviation_travel_time) 
@@ -82,7 +82,6 @@ public class TravelTime implements Comparable<TravelTime>
 	//-----------------------------
 	// Metodos de funcionamiento 
 	//-----------------------------
-	@Override
 	public int compareTo(TravelTime o) 
 	{
 		if(this.mean_travel_time > o.mean_travel_time)
