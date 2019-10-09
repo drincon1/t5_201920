@@ -48,6 +48,18 @@ public class ArregloDinamico<T extends Comparable<T>> implements IArregloDinamic
 		elementos[tamanoAct] = dato;
 		tamanoAct++;
 	}
+	
+	public void agregarPorPosicion(T dato, int pos)
+	{
+		elementos[pos] = dato;
+		tamanoAct++;
+	}
+	
+	public void rehash()
+	{
+		tamanoMax = 2 * tamanoMax;
+		elementos = (T[]) new Comparable [tamanoMax];
+	}
 
 	public int darCapacidad() {
 		return tamanoMax;

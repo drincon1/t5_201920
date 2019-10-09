@@ -39,5 +39,12 @@ public class MVCView
 			System.out.println("Tiempo Promedio: " + viaje[i].darUltimo().elemento.getMean_travel_time());
 		}
 	}
+	
+	public int printPoblarSeparateChaining()
+	{
+		printMensaje("¿Cuál trimestre quiere manejar?");
+		int trimestre = lector.nextInt();
+		return trimestre;
+	}
 
 }

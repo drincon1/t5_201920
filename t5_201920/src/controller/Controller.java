@@ -28,5 +28,8 @@ public class Controller
 	public void run() throws IOException
 	{
 		view.printInfoCarga(modelo.getViajesSemana1(), modelo.getViajesSemana2(), modelo.getViajesSemana3(), modelo.getViajesSemana4());
+		view.printMensaje(Integer.toString(modelo.poblarSeparateChaining(view.printPoblarSeparateChaining()).N));
+		
+	
 	}
 }

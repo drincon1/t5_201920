@@ -13,7 +13,7 @@ public class testTablaHashSeparateChaining
 	@Before
 	public void setUp()
 	{
-		tabla = new TablaHashSeparateChaining<String, String>(3);
+		tabla = new TablaHashSeparateChaining<String, String>();
 		tabla.put("1", "Barcelona");
 		tabla.put("2", "Liverpool");
 		tabla.put("3", "BVB");
@@ -35,8 +35,10 @@ public class testTablaHashSeparateChaining
 	@Test
 	public void testIterador()
 	{
-		Iterator a = tabla.keys();
-		while(a.hasNext())
-			System.out.println(tabla.keys().next());
+		Iterator<String> keys = tabla.keys();
+		while(keys.hasNext())
+		{
+			System.out.println(keys.next());
+		}
 	}
 }

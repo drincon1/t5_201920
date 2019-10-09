@@ -9,16 +9,15 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	//----------------------------------------
 
 	private int M;
-	private int N;
-	
-	private Node[] st;
-	
-	private static class Node
+	public int N;
+
+	private ArregloDinamico<Node> arreglo;
+	public static class Node implements Comparable<Node>
 	{
 		private Object key;
 		private Object value;
 		private Node next;
-		
+
 		public Node(Object key, Object value, Node next) {
 			super();
 			this.key = key;
@@ -66,6 +65,12 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 		 */
 		public void setNext(Node next) {
 			this.next = next;
+		}
+
+		@Override
+		public int compareTo(Node o) 
+		{
+			return 0;
 		}	
 	}
 
@@ -78,11 +83,11 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	 * Crea una tabla de hash con capacidad inicial de m posiciones
 	 * @param m Tamano de la tabla a crear. m > 0
 	 */
-	public TablaHashSeparateChaining (int m)
+	public TablaHashSeparateChaining ()
 	{
-		M = m;
+		M = 499;
 		N = 0;
-		st = new Node[m];
+		arreglo = new ArregloDinamico<Node>(499);
 
 	}
 
@@ -92,27 +97,47 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	@Override
 	public void put(K key, V value) 
 	{
-		int i = hash(key);
-		for(Node x = st[i]; x != null; x = x.getNext())
+		int i = hash(key);		
+		for(Node x = arreglo.darElemento(i); x != null; x = x.getNext())
 		{
 			if(key.equals(x.getKey()))
 			{
 				x.setValue(value);
 				return;
 			}
-				
 		}
 		N++;
-		st[i] = new Node(key, value, st[i]);
+		arreglo.agregarPorPosicion(new Node(key, value,arreglo.darElemento(i)), i); 
+
+		if((double) N/M > 5.0)
+		{
+			ArregloDinamico<Node> copia = arreglo;
+			arreglo.rehash();
+			M = arreglo.darCapacidad();
+			N  = 0;
+			for(int indice = 0;indice < M; indice++)
+			{
+				Node x = copia.darElemento(indice);
+				while(x != null)
+				{
+					put((K)x.key, (V)x.value);
+					x = x.getNext();
+				}
+
+			}
+
+		}
 	}
 
 	@Override
 	public V get(K key) 
 	{
-		int i = hash(key);
-		for(Node x = st[i]; x != null; x = x.getNext())
+		int i = hash(key);		
+		for(Node x = arreglo.darElemento(i); x != null; x = x.getNext())
 			if(x.getKey().equals(key))
 				return (V) x.getValue();
+
+
 		return null;
 	}
 
@@ -122,10 +147,10 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	{	
 		int i = hash(key);
 		V valor = null;
-		if(st[i] != null)
+		if(arreglo.darElemento(i) != null) 
 		{
 			Node prev = null;
-			Node actual = st[i];
+			Node actual = arreglo.darElemento(i);
 			while(actual.getNext() != null && !(actual.getKey().equals(key)))
 			{
 				prev = actual;
@@ -135,7 +160,7 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 			{
 				valor = (V) actual.getValue();
 				if(prev == null)
-					st[i] = actual.getNext();
+					arreglo.agregarPorPosicion(actual.getNext(), i);
 				else
 					prev.setNext(actual.getNext());
 				N--;
@@ -148,11 +173,11 @@ public class TablaHashSeparateChaining<K, V extends Comparable<V>> implements IT
 	public Iterator<K> keys()
 	{
 		ArrayList<K> lista = new ArrayList<K>();
-		for(int i = 0; i < N; i++)
+		for(int i = 0; i < M; i++)
 		{
-			if(st[i] != null)
+			if(arreglo.darElemento(i) != null)
 			{
-				Node temp = st[i];
+				Node temp = arreglo.darElemento(i);
 				while(temp != null)
 				{
 					lista.add((K) temp.getKey());
