@@ -6,6 +6,7 @@ import com.opencsv.CSVReader;
 
 import model.data_structures.ListaDoblementeEncadenada;
 import model.data_structures.Nodo;
+import model.data_structures.TablaHashLinearProbing;
 import model.data_structures.TablaHashSeparateChaining;
 
 
@@ -122,6 +123,34 @@ public class MVCModelo
 		return tablaSC;
 	}
 	
+	
+	public TablaHashLinearProbing<String, TravelTime> usoLinearProbing(int trimestre)
+	{
+		TablaHashLinearProbing<String, TravelTime> tablaLP = new TablaHashLinearProbing<String, TravelTime>();
+		ListaDoblementeEncadenada<TravelTime> temporal = null;
+		switch(trimestre)
+		{
+		case 1: temporal = viajesSemana1;
+		break;
+		case 2: temporal = viajesSemana2;
+		break;
+		case 3: temporal = viajesSemana3;
+		break;
+		case 4:  temporal = viajesSemana4;
+		break;
+		}
+		
+		Nodo<TravelTime> temp = temporal.darPrimero();
+		while(temp != null)
+		{
+			int trim = temp.elemento.getTrimestre();
+			int source = temp.elemento.getSourceid();
+			int dest = temp.elemento.getDistid();
+			tablaLP.put(Integer.toString(trim)+"-"+Integer.toString(source)+"-"+Integer.toString(dest), temp.darElemento());
+		}
+		
+		return tablaLP;
+	}
 	
 
 

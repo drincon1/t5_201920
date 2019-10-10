@@ -46,5 +46,11 @@ public class MVCView
 		int trimestre = lector.nextInt();
 		return trimestre;
 	}
+	
+	public int printLP () {
+		printMensaje ("Que trimestre desea consultar?");
+		int input = lector.nextInt();
+		return input;
+	}
 
 }

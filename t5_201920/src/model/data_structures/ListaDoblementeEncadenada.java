@@ -1,6 +1,8 @@
 package model.data_structures;
 //import static org.junit.Assert.*;
 
+import java.util.*;
+
 //import org.junit.Before;
 //import org.junit.Test;
 /**
@@ -14,7 +16,7 @@ package model.data_structures;
  * @author Daniel Rincon Garcia
  * @param <T>
  */
-public class ListaDoblementeEncadenada<T extends Comparable<T>> 
+public class ListaDoblementeEncadenada<T extends Comparable<T>> implements Iterable<T>
 {
 	//Tamaño de la lista doblemente encadenada
 	int tamano;
@@ -149,6 +151,28 @@ public class ListaDoblementeEncadenada<T extends Comparable<T>>
 			return null;
 		
 		return temporal;
+	}
+
+	public Iterator<T> iterator() {
+		return new ListIterator<T>(primero);
+	}
+	
+	private class ListIterator<Item> implements Iterator<Item> {
+		private Nodo<Item> current;
+
+		public ListIterator(Nodo<Item> first) {
+			current = first;
+		}
+
+		public boolean hasNext()  { return current != null;                     }
+		public void remove()      { throw new UnsupportedOperationException();  }
+
+		public Item next() {
+			if (!hasNext()) throw new NoSuchElementException();
+			Item item = current.darElemento();
+			current = current.darSiguiente(); 
+			return item;
+		}
 	}
 
 }

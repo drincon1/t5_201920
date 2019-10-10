@@ -29,6 +29,7 @@ public class Controller
 	{
 		view.printInfoCarga(modelo.getViajesSemana1(), modelo.getViajesSemana2(), modelo.getViajesSemana3(), modelo.getViajesSemana4());
 		view.printMensaje(Integer.toString(modelo.poblarSeparateChaining(view.printPoblarSeparateChaining()).N));
+		view.printMensaje(Integer.toString(modelo.usoLinearProbing(view.printLP()).size()));
 		
 	
 	}
